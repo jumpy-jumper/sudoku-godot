@@ -1,0 +1,101 @@
+@0@First Steps@
+467921358895473261231865749513698427928704613746132985354287196189346572672519834{Welcome to my sudoku app!}{Right click on an empty cell then select a number by moving your mouse around to mark the cell.}{You can also enter a number by hovering over the cell and pressing 1-9 on your keyboard.}{You win a game of sudoku if all cells are filled and no row, column, or 3x3 square repeats a digit.}{To highlight a cell's row, column, and 3x3 square, hold Control or F5 over the cell.}{To clear a marked cell, press C, Backspace, or the cell's number.}
+
+@0@One Row at a Time@
+020456789457080236689237040005362974274090653396574800040618397761040528938725060{Left click on the board to select cells. Left click on empty space to deselect. To select multiple times, hold Space/Shift/Alt/F6.}{Hold right click or press 1-9 inside the selection (or empty space) to draw pencil marks.}{Hold Space/Shift/Alt/F6 to use a different set of pencil marks.}{To clear all pencil marks, press C or Backspace on the selection or empty space.}{You can change the pencil marks style in the settings.}{All levels are automatically saved, including custom levels.}
+
+@0@Candidates Tournament@
+040002019000351086310094700
+094000007
+000000000
+200000890
+009520041
+420169000
+160800070
+{You can find notes in the bottom right. Press the colored note button to create your own note. It will be added to the bottom right, and you can hover over it to view it.}{Select cells on the board and choose a color before creating a note to attach that selection and color to the note.}{Left click on your note to hide it. Hold right click on your note to delete it. Hold left click on your note to make it unhoverable on the board.}{Press the eye button to toggle hiding all notes.}
+
+@0@Gentle Killer@
+[11]00[14]08[7]0[4]00[4]0[11]5[13]05[10]004[24]9[19]700[14]073050[16]891[20]0[14]10[12]0[15]0450[10]87[11]3050[15]800060[13]0[17]100[11]00[12]95[10]680[3]00[10]000[13]30[18]090[11]06[13]8[11]0000[14]00[5]0200aabbcddefgghhhijjflllhiikjjgmmopikkrgnmopqqqrgnsuuuwwygtsuvuxxyztaavccefzzabbddef{In killer sudoku, digits inside a cage must sum to the cage's number. Digits inside a cage must also be unique.}{Double click on a cage to select it. Select multiple cages to display their sum.}{Press the paint bucket button in the bottom right to toggle cage color.}{Middle click or press E or N when a note is highlighted to enter edit mode. During edit mode, you can change the note's cells and color. Press middle click/E/N to confirm or right click to cancel. Left click the note or the create note button to edit the note's text.}
+
+@0@[Placeholder]@
+467921358895473261231865749513698427928050613746132985354287196189346572672519834{During beta builds, the game will check for updates. If the updater fails to connect or the game breaks after updating, please report.}{If the game starts crashing consistently, please send me your savedata, located at (AppData/Roaming/Godot/app_userdata/Sudoku/savedata.json)}{Delete a custom level by holding right click on it.}{To figure out how to input custom levels, analyze the given example or ask me.}
+
+@1@Hidden in Plain Sight@
+020000600000090070500001000000600003700005001060370080004000008800002007071040200
+
+@1@Holding Hands@
+001203400000607000500000003370000081000000000620000037100000008000805000006402500
+
+@1@99 Cookies for 20 Mouths@
+[6]00[11]00[17]000[11]00[11]00[16]00[8]00[15]00[12]0[23]00[11]0[15]0000[4]000[11]000[18]0000000[21]00000[20]00[18]0[4]0[19]000[24]0[3]00[12]000[16]0[19]00000000000[7]00[8]00[10]00[8]000[10]00[17]00aabbcccddeeffgghhijjkllghmijnklooominnpppppqqsyaaabxqrsyxcbbxrrsxxccddeettuuuvvww
+
+
+@1.5@Sneaky Dwellers@
+300000000970010000600583000200000900500621003008000005000435002000090056000000001
+
+@0@(Introduction) X-Wing@
+005400602006020150293561784052304800301206405000057320030042560024005900507009240
+
+@0@(Introduction) Skyscraper@
+503482700098756030072913085836521947241879563759634821085307000007248050024105078
+
+@2.5@Scraping the Heavens@
+084009362600203849329468715092600483400802056806004027745386291263941578918020634
+
+@2.5@45's Leftovers@
+[14]00[31]00[12]00[11]00[14]0000[11]00[13]000000[21]00[9]00[24]00[12]0000[8]0[31]000[11]000[11]0[16]000[6]000[17]0[11]0000000000[24]00[9]00[14]00[28]0000[5]00[11]0000[20]00[11]00000000aabbeegghabbdeffhhbbcdiijhkccclmmjnkcoplmqjnrsopmmqrrrstpuuvrwwttyyzvwwatxxzzwwaa
+
+@3@Space Journey@
+000490000008020004060500070054000600000000000009000580030002090500080300000073000
+
+@0@(Introduction) Hidden Pairs / Hidden Triples@
+490000021000329450205614000080000003324090160600030040000053900007002000040000015
+
+@3@Tag-Team Hide and Seek@
+900700006007030940020109000006003087000000600430070200000007060042090300100005008
+
+@3@Hiding Couple@
+003910700000023491109047006061700000002109600000062010790080123318290500005371900
+
+@0@(Introduction) Single's Chains (Part 1)@
+128450096046091285905826410003502149091040052452109000004015908287934561519008004
+
+@0@(Introduction) Single's Chains (Part 2)@
+123000587005817239987000164051008473390750618708100925076000891530081746810070352
+
+@0@(Introduction) Y-Wing@
+357000400062070930094203700235847619716002843948136200029715380573028190081300500
+
+@3@Y-Winged Winds@
+002804001004060208870320405923618004405000603700543029258037046649080307137406002
+
+@3@Lost Inside Binary World@
+400956001609018007100370009316089750824537196795601803200765908900800005500193000
+
+@3@Serial Killer@
+[15]000[16]0[7]0[9]0[13]00[40]0[13]0[13]000000000[4]00[11]00000[23]0[13]0[11]00[45]0000[5]000[15]0000000000[38]0000[16]0000000[8]00[14]00[9]000[12]0[7]0[14]0[12]0[7]000000000[15]000aaaklmnnqbjjklmnqqbrrssqqqbcppooqqcbceooooocbceddooaabcdddmmnnlddfghijjldffghikkk
+
+@0@(Introduction) Swordfish@
+108004567000050000000010030006175040451000973782493050200040010013002704847001005
+
+@5@Eight Squares@
+0000600[29]000[28]0000000000000[25]00000000000[23]00[17]00000000000[11]0000000000000[11]000[10]000000000000000000       aa bb    aa bb  cc       ccddee     ddeeff       ff  gg hh    gg hh     
+
+@6@killersudokuonline.com Daily GT No.5484 (Outrageous)@
+0>000>00//>0000/>0//>00>>0>0///>0/>/>00//>00>//>000//>0//>0>0>0///>0>0000>/>00>0>>00///>0>>>0///>0/>0///>0///>0>00//>000000//>0///>0000>/>000>>0/>000//>000///>00/>0//>000///>00>00///>0000>0
+
+
+@7@killersudokuonline.com Weekly GT Killer No.784 (Mind Bending)@
+00/>[18]000[18]00[10]00000/>00000000//>00[8]0///>000[19]00/>[22]00000000000000/=0=0000[22]0000[13]0///>0=>00>00000//>0000000/>[13]0000[17]00000>00000aabbbccddeeeffcgddhiiikkgglhjjjmmpllnnoommpqrabfoojkqrabffojkhrcbbbejkhiccddegghi
+
+
+@7@killersudokuonline.com Weekly No.74 (Mind Bending)@
+[9]00[13]0[3]0[12]0[16]00[17]00[22]00000000[25]00[13]000[22]000000[12]0[10]0[34]00000[11]0[7]000000[12]0[10]000[33]00[14]00000[14]000000[20]00000[20]000[8]0[14]0[9]00000[12]00000[13]00aacdeffggbbcdeggghbiiijjjhhbkmnnjhholkmnnnpqolrrznnpqyrrzzzaaayrsssuvwyyssttuvwxx
+
+
+@9@Tatooine Sunrise@
+000000000100002300040050060060070010200003800000000007009500000050060070300008200
+
+
+@9@Tatooine Sunset@
+000000000009800007080060050050040030007900002000000000002700009040050060300006200  

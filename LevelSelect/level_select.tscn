@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Fonts/text_large.tres" type="DynamicFont" id=1]
+[ext_resource path="res://LevelSelect/level_set.tscn" type="PackedScene" id=2]
+
+[node name="LevelSelect" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="UI" type="Node2D" parent="CanvasLayer"]
+position = Vector2( 640, 384 )
+
+[node name="LevelDescription" type="Label" parent="CanvasLayer/UI"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -640.0
+margin_top = 256.0
+margin_right = 640.0
+margin_bottom = 334.0
+custom_fonts/font = ExtResource( 1 )
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LeftSet" parent="." instance=ExtResource( 2 )]
+margin_left = 64.0
+margin_top = 64.0
+margin_right = 64.0
+margin_bottom = 64.0

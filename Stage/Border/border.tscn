@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Stage/Border/border.gd" type="Script" id=1]
+[ext_resource path="res://Stage/Border/border_view.gd" type="Script" id=2]
+[ext_resource path="res://Sprites/dashed_line.png" type="Texture" id=3]
+
+[node name="Border" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="View" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Line" type="Line2D" parent="View"]
+points = PoolVector2Array( -5, -5, -5, 69, 59, 69, 59, 133, 133, 133, 133, 64, 192, 64, 192, -5, -5, -5 )
+width = 5.0
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 3 )
+texture_mode = 1

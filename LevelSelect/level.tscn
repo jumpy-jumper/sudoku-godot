@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/square.png" type="Texture" id=1]
+[ext_resource path="res://Sprites/border_thin.png" type="Texture" id=2]
+[ext_resource path="res://Sprites/border_thick.png" type="Texture" id=3]
+[ext_resource path="res://Fonts/text_large.tres" type="DynamicFont" id=4]
+[ext_resource path="res://LevelSelect/level.gd" type="Script" id=5]
+[ext_resource path="res://Utilities/Clickable/clickable.tscn" type="PackedScene" id=6]
+[ext_resource path="res://LevelSelect/level_view.gd" type="Script" id=7]
+
+[node name="Level" type="Control"]
+margin_right = 64.0
+margin_bottom = 64.0
+rect_min_size = Vector2( 64, 64 )
+rect_pivot_offset = Vector2( 32, 32 )
+script = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Controller" type="Node2D" parent="."]
+
+[node name="Clickable" parent="Controller" instance=ExtResource( 6 )]
+
+[node name="View" type="Node2D" parent="."]
+script = ExtResource( 7 )
+
+[node name="Square" type="Sprite" parent="View"]
+modulate = Color( 0.262745, 0.262745, 0.262745, 1 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="ThinBorder" type="Sprite" parent="View"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="ThickBorder" type="Sprite" parent="View"]
+visible = false
+texture = ExtResource( 3 )
+centered = false
+
+[node name="DifficultyHighlight" type="Sprite" parent="View"]
+modulate = Color( 1, 1, 1, 0.160784 )
+texture = ExtResource( 1 )
+centered = false
+
+[node name="Label" type="Label" parent="View"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_top = 2.0
+margin_right = 64.0
+margin_bottom = 66.0
+rect_min_size = Vector2( 64, 64 )
+custom_fonts/font = ExtResource( 4 )
+text = "1"
+align = 1
+valign = 1
+autowrap = true
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="updated" from="." to="View" method="_on_Level_updated"]
+[connection signal="mouse_status_changed" from="Controller/Clickable" to="View" method="_on_Clickable_mouse_status_changed"]
