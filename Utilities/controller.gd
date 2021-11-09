@@ -8,12 +8,14 @@ class_name Controller
 func _ready():
 	find_model()
 	initialize_checks()
+	model.controllers.append(self)
 
 func _process(dt):
 	advance_timers(dt)
 
 func _input(event):
-	do_checks(event)
+	if is_visible_in_tree():
+		do_checks(event)
 
 enum Device { ANY, MOUSE, KEYBOARD, JOYSTICK }
 
@@ -36,25 +38,26 @@ var locks = {
 	Device.JOYSTICK : [],
 }
 
-var locked_checks = {}
+var free_checks = []
 
 func add_lock(lock, locked_checks = [], input_device = Device.ANY):
 	if not lock in locks[input_device]:
 		locks[input_device].append(lock)
-	self.locked_checks[lock] = locked_checks
 
 func release_lock(lock, input_device = Device.ANY):
 	if lock in locks[input_device]:
 		locks[input_device].erase(lock)
 
+func release_all_locks():
+	locks = {
+		Device.ANY : [],
+		Device.MOUSE : [],
+		Device.KEYBOARD : [],
+		Device.JOYSTICK : [],
+}
+
 func is_locked(input_device = Device.ANY):
 	return not locks[input_device].empty()
-
-func is_check_locked(check, input_device = Device.ANY):
-	for lock in locked_checks.keys():
-		if lock in locks[input_device] and check in locked_checks[lock]:
-			return true
-	return false
 
 #  -------------------------
 # |  CHECKS                 |
@@ -76,18 +79,11 @@ func initialize_checks():
 	pass
 
 func do_checks(event):
-	if not is_locked():
-		for fun in checks[Device.ANY]:
+	var is_locked = [is_locked(), is_locked(Device.MOUSE), \
+		is_locked(Device.KEYBOARD), is_locked(Device.JOYSTICK)]
+	for fun in checks[Device.ANY] + checks[Device.MOUSE] + checks[Device.KEYBOARD] + checks[Device.JOYSTICK]:
+		if fun in free_checks or not is_locked[0]:
 			call(fun, event)
-		if not is_locked(Device.MOUSE):
-			for fun in checks[Device.MOUSE]:
-				call(fun, event)
-		if not is_locked(Device.KEYBOARD):
-			for fun in checks[Device.KEYBOARD]:
-				call(fun, event)
-		if not is_locked(Device.JOYSTICK):
-			for fun in checks[Device.JOYSTICK]:
-				call(fun, event)
 
 #  -------------------------
 # |  TIMERS                 |

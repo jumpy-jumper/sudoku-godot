@@ -3,4 +3,5 @@
 [ext_resource path="res://Utilities/input_watcher.gd" type="Script" id=1]
 
 [node name="InputWatcher" type="Node2D"]
+pause_mode = 2
 script = ExtResource( 1 )

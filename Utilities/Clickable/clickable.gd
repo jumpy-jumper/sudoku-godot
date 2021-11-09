@@ -5,10 +5,12 @@
 extends Sprite
 
 func _process(dt):
-	update_mouse_status()
+	if is_visible_in_tree():
+		update_mouse_status()
 
 func _input(event):
-	check_mouse_press(event)
+	if is_visible_in_tree():
+		check_mouse_press(event)
 
 #  -------------------------
 # |  ENTER AND EXIT         |
@@ -23,25 +25,27 @@ signal released()
 
 export var actionate_on_press = false
 
-onready var rect = texture.get_size() * global_scale
-
 var hovered = false
 var clicked = false
 
 func update_mouse_status():
 	var previously_hovered = hovered
 	
+	var rect = texture.get_size() * global_scale
 	var pos = get_global_mouse_position() - global_position
-	pos /= global_scale
-	pos = pos.rotated(rotation)
+	pos = pos.rotated(-global_rotation)
+	if centered:
+		pos += rect / 2
 	hovered = pos.x > 0 and pos.x < rect.x and pos.y > 0 and pos.y < rect.y
 	
 	if hovered != previously_hovered:
 		emit_signal("mouse_status_changed", hovered, clicked)
 		emit_signal("mouse_entered" if hovered else "mouse_exited")
 
+export var action_button = BUTTON_LEFT
+
 func check_mouse_press(event):
-	if event is InputEventMouseButton:
+	if event is InputEventMouseButton and event.button_index == action_button:
 		if event.pressed:
 			if hovered:
 				if actionate_on_press:
@@ -61,7 +65,11 @@ func check_mouse_press(event):
 				emit_signal("mouse_status_changed", hovered, clicked)
 				emit_signal("released")
 
-const not_hovered_alpha = 0.65
+onready var initial_alpha = modulate.a
+
+export var clicked_alpha_increase = 0.15
+export var hovered_alpha_increase = 0.25
 
 func _on_Clickable_mouse_status_changed(hovered, clicked):
-	modulate.a = 1 if hovered or clicked else 0.65
+	modulate.a = clicked_alpha_increase + hovered_alpha_increase + initial_alpha if clicked else \
+		(hovered_alpha_increase + initial_alpha if hovered else initial_alpha)

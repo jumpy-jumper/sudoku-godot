@@ -17,14 +17,15 @@ func _process(dt):
 var rapid_fire_group = { 
 	"undo" : "default",
 	"redo" : "default",
+	"number_wheel" : "default",
 }
 
 var rapid_fire_wait = { # How long to wait before rapid fire is active
-	"default" : 0.3,
+	"default" : 0.15,
 }
 
 var rapid_fire_interval = { # How long to wait before allowing the action to fire again
-	"default" : 0.04,
+	"default" : 0.03,
 }
 
 var rapid_fire_hold = { # How long to wait until rapid fire must be reinitialized

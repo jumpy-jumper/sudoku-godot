@@ -24,7 +24,7 @@ func _on_Level_updated():
 		level.Progress.SOLVED:
 			label.modulate = Color.gold
 		level.Progress.IN_PROGRESS:
-			label.modulate = Color.cyan
+			label.modulate = Color.lightcyan
 		level.Progress.FAILED:
 			label.modulate = Color.lightcoral
 		level.Progress.NOT_ATTEMPTED:

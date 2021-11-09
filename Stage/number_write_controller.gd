@@ -4,6 +4,9 @@
 
 extends Controller
 
+func _ready():
+	initialize_secondary_marks()
+
 #  -------------------------
 # |  CHECKS               |
 #  -------------------------
@@ -12,6 +15,7 @@ func initialize_checks():
 	checks[Controller.Device.ANY].append("check_number")
 	checks[Controller.Device.ANY].append("check_clear")
 	checks[Controller.Device.ANY].append("check_number_wheel")
+	checks[Controller.Device.ANY].append("check_secondary_marks")
 
 #  -------------------------
 # |  NUMBER INPUT           |
@@ -29,6 +33,22 @@ signal clear()
 func check_clear(event):
 	if event.is_action_pressed("clear"):
 		emit_signal("clear")
+
+signal toggle_secondary_marks(active)
+
+func initialize_secondary_marks():
+	call_deferred("emit_signal", "toggle_secondary_marks", Settings.settings["secondary_marks"])
+
+func check_secondary_marks(event):
+	if event.is_action_pressed("secondary_marks_toggle") \
+		and not Input.is_action_pressed("secondary_marks_hold"):
+			Settings.settings["secondary_marks"] = not Settings.settings["secondary_marks"]
+			Settings.apply_settings()
+			emit_signal("toggle_secondary_marks", Settings.settings["secondary_marks"])
+	elif event.is_action_pressed("secondary_marks_hold"):
+		emit_signal("toggle_secondary_marks", not Settings.settings["secondary_marks"])
+	elif event.is_action_released("secondary_marks_hold"):
+		emit_signal("toggle_secondary_marks", Settings.settings["secondary_marks"])
 
 #  -------------------------
 # |  NUMBER WHEEL           |
@@ -49,7 +69,12 @@ func check_number_wheel(event):
 			new_wheel.connect("selected", self, "_on_NumberWheelSelected")
 			emit_signal("number_wheel_spawned")
 		elif model.selection.empty():
-			emit_signal("clear")
+			if model.hovered_cell:
+				emit_signal("clear")
+	
+	if event.is_action_pressed("number_wheel"):
+		if not model.hovered_cell and model.selection.empty():
+			model.fill_singles()
 
 func _on_NumberWheelSelected(num):
 	if not is_locked():

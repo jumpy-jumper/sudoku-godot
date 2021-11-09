@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Cell/cell.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Stage/stage.gd" type="Script" id=2]
@@ -7,7 +7,43 @@
 [ext_resource path="res://Stage/state_controller.gd" type="Script" id=5]
 [ext_resource path="res://Stage/selection_controller.gd" type="Script" id=6]
 [ext_resource path="res://Stage/Border/border.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Fonts/text.tres" type="DynamicFont" id=8]
 [ext_resource path="res://Stage/number_write_controller.gd" type="Script" id=9]
+[ext_resource path="res://Sprites/clock.png" type="Texture" id=10]
+[ext_resource path="res://Stage/timer_controller.gd" type="Script" id=11]
+[ext_resource path="res://Sprites/pause.png" type="Texture" id=12]
+[ext_resource path="res://Utilities/Clickable/clickable.tscn" type="PackedScene" id=13]
+[ext_resource path="res://firefox_kpNNVrv5YT.png" type="Texture" id=14]
+[ext_resource path="res://Sprites/rounded_rectangle.png" type="Texture" id=15]
+[ext_resource path="res://Stage/ui_controller.gd" type="Script" id=16]
+[ext_resource path="res://Stage/Notes/notes.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Stage/notes_controller.gd" type="Script" id=18]
+[ext_resource path="res://Stage/Notes/Sprites/note-create.png" type="Texture" id=19]
+[ext_resource path="res://Stage/edit_note_controller.gd" type="Script" id=21]
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+
+void fragment() {
+	vec4 color = texture(TEXTURE, UV);
+	COLOR = vec4(1.0 - color.rgb, color.a);
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+
+[sub_resource type="StyleBoxEmpty" id=5]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends LineEdit
+
+func _process(dt):
+	set(\"custom_colors/font_color_uneditable\", modulate)
+"
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 2 )
@@ -23,253 +59,300 @@ script = ExtResource( 9 )
 [node name="StateController" type="Node2D" parent="Controllers"]
 script = ExtResource( 5 )
 
+[node name="TimerController" type="Node2D" parent="Controllers"]
+script = ExtResource( 11 )
+
+[node name="UIController" type="Node2D" parent="Controllers"]
+script = ExtResource( 16 )
+color_picker = NodePath("../../View/UI/ColorPicker")
+
+[node name="NotesController" type="Node2D" parent="Controllers"]
+script = ExtResource( 18 )
+
+[node name="EditNoteController" type="Node2D" parent="Controllers"]
+script = ExtResource( 21 )
+
 [node name="Grid" type="Node2D" parent="."]
-position = Vector2( 384, 64 )
+position = Vector2( 640, 360 )
 
 [node name="Cell" parent="Grid" instance=ExtResource( 1 )]
+position = Vector2( -296, -295 )
 
 [node name="Cell2" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 0 )
+position = Vector2( -232, -295 )
 
 [node name="Cell3" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 0 )
+position = Vector2( -168, -295 )
 
 [node name="Cell4" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 0 )
+position = Vector2( -96, -295 )
 
 [node name="Cell5" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 0 )
+position = Vector2( -32, -295 )
 
 [node name="Cell6" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 0 )
+position = Vector2( 32, -295 )
 
 [node name="Cell7" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 0 )
+position = Vector2( 104, -295 )
 
 [node name="Cell8" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 0 )
+position = Vector2( 168, -295 )
 
 [node name="Cell9" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 0 )
+position = Vector2( 232, -295 )
 
 [node name="Cell10" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 64 )
+position = Vector2( -296, -231 )
 
 [node name="Cell11" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 64 )
+position = Vector2( -232, -231 )
 
 [node name="Cell12" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 64 )
+position = Vector2( -168, -231 )
 
 [node name="Cell13" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 64 )
+position = Vector2( -96, -231 )
 
 [node name="Cell14" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 64 )
+position = Vector2( -32, -231 )
 
 [node name="Cell15" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 64 )
+position = Vector2( 32, -231 )
 
 [node name="Cell16" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 64 )
+position = Vector2( 104, -231 )
 
 [node name="Cell17" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 64 )
+position = Vector2( 168, -231 )
 
 [node name="Cell18" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 64 )
+position = Vector2( 232, -231 )
 
 [node name="Cell19" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 128 )
+position = Vector2( -296, -167 )
 
 [node name="Cell20" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 128 )
+position = Vector2( -232, -167 )
 
 [node name="Cell21" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 128 )
+position = Vector2( -168, -167 )
 
 [node name="Cell22" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 128 )
+position = Vector2( -96, -167 )
 
 [node name="Cell23" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 128 )
+position = Vector2( -32, -167 )
 
 [node name="Cell24" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 128 )
+position = Vector2( 32, -167 )
 
 [node name="Cell25" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 128 )
+position = Vector2( 104, -167 )
 
 [node name="Cell26" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 128 )
+position = Vector2( 168, -167 )
 
 [node name="Cell27" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 128 )
+position = Vector2( 232, -167 )
 
 [node name="Cell28" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 200 )
+position = Vector2( -296, -95 )
 
 [node name="Cell29" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 200 )
+position = Vector2( -232, -95 )
 
 [node name="Cell30" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 200 )
+position = Vector2( -168, -95 )
 
 [node name="Cell31" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 200 )
+position = Vector2( -96, -95 )
 
 [node name="Cell32" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 200 )
+position = Vector2( -32, -95 )
 
 [node name="Cell33" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 200 )
+position = Vector2( 32, -95 )
 
 [node name="Cell34" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 200 )
+position = Vector2( 104, -95 )
 
 [node name="Cell35" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 200 )
+position = Vector2( 168, -95 )
 
 [node name="Cell36" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 200 )
+position = Vector2( 232, -95 )
 
 [node name="Cell37" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 264 )
+position = Vector2( -296, -31 )
 
 [node name="Cell38" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 264 )
+position = Vector2( -232, -31 )
 
 [node name="Cell39" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 264 )
+position = Vector2( -168, -31 )
 
 [node name="Cell40" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 264 )
+position = Vector2( -96, -31 )
 
 [node name="Cell41" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 264 )
+position = Vector2( -32, -31 )
 
 [node name="Cell42" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 264 )
+position = Vector2( 32, -31 )
 
 [node name="Cell43" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 264 )
+position = Vector2( 104, -31 )
 
 [node name="Cell44" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 264 )
+position = Vector2( 168, -31 )
 
 [node name="Cell45" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 264 )
+position = Vector2( 232, -31 )
 
 [node name="Cell46" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 328 )
+position = Vector2( -296, 33 )
 
 [node name="Cell47" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 328 )
+position = Vector2( -232, 33 )
 
 [node name="Cell48" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 328 )
+position = Vector2( -168, 33 )
 
 [node name="Cell49" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 328 )
+position = Vector2( -96, 33 )
 
 [node name="Cell50" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 328 )
+position = Vector2( -32, 33 )
 
 [node name="Cell51" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 328 )
+position = Vector2( 32, 33 )
 
 [node name="Cell52" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 328 )
+position = Vector2( 104, 33 )
 
 [node name="Cell53" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 328 )
+position = Vector2( 168, 33 )
 
 [node name="Cell54" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 328 )
+position = Vector2( 232, 33 )
 
 [node name="Cell55" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 400 )
+position = Vector2( -296, 105 )
 
 [node name="Cell56" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 400 )
+position = Vector2( -232, 105 )
 
 [node name="Cell57" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 400 )
+position = Vector2( -168, 105 )
 
 [node name="Cell58" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 400 )
+position = Vector2( -96, 105 )
 
 [node name="Cell59" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 400 )
+position = Vector2( -32, 105 )
 
 [node name="Cell60" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 400 )
+position = Vector2( 32, 105 )
 
 [node name="Cell61" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 400 )
+position = Vector2( 104, 105 )
 
 [node name="Cell62" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 400 )
+position = Vector2( 168, 105 )
 
 [node name="Cell63" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 400 )
+position = Vector2( 232, 105 )
 
 [node name="Cell64" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 464 )
+position = Vector2( -296, 169 )
 
 [node name="Cell65" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 464 )
+position = Vector2( -232, 169 )
 
 [node name="Cell66" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 464 )
+position = Vector2( -168, 169 )
 
 [node name="Cell67" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 464 )
+position = Vector2( -96, 169 )
 
 [node name="Cell68" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 464 )
+position = Vector2( -32, 169 )
 
 [node name="Cell69" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 464 )
+position = Vector2( 32, 169 )
 
 [node name="Cell70" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 464 )
+position = Vector2( 104, 169 )
 
 [node name="Cell71" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 464 )
+position = Vector2( 168, 169 )
 
 [node name="Cell72" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 464 )
+position = Vector2( 232, 169 )
 
 [node name="Cell73" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 0, 528 )
+position = Vector2( -296, 233 )
 
 [node name="Cell74" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 64, 528 )
+position = Vector2( -232, 233 )
 
 [node name="Cell75" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 128, 528 )
+position = Vector2( -168, 233 )
 
 [node name="Cell76" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 200, 528 )
+position = Vector2( -96, 233 )
 
 [node name="Cell77" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 264, 528 )
+position = Vector2( -32, 233 )
 
 [node name="Cell78" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 328, 528 )
+position = Vector2( 32, 233 )
 
 [node name="Cell79" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 400, 528 )
+position = Vector2( 104, 233 )
 
 [node name="Cell80" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 464, 528 )
+position = Vector2( 168, 233 )
 
 [node name="Cell81" parent="Grid" instance=ExtResource( 1 )]
-position = Vector2( 528, 528 )
+position = Vector2( 232, 233 )
 
 [node name="View" type="Node2D" parent="."]
 script = ExtResource( 4 )
+
+[node name="BgLayer" type="Node2D" parent="View"]
+z_index = -1
+
+[node name="CustomSudokuBG" type="TextureRect" parent="View/BgLayer"]
+visible = false
+modulate = Color( 1, 1, 1, 0.819608 )
+material = SubResource( 4 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_right = 1280.0
+margin_bottom = 720.0
+rect_scale = Vector2( 0.44, 0.44 )
+rect_pivot_offset = Vector2( 640, 360 )
+texture = ExtResource( 14 )
+expand = true
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="BGScaleSlider" type="HSlider" parent="View/BgLayer"]
+visible = false
+margin_left = 24.0
+margin_top = 40.0
+margin_right = 232.0
+margin_bottom = 64.0
+max_value = 200.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="HoverBorder" type="Sprite" parent="View"]
 position = Vector2( -128, -128 )
@@ -281,14 +364,226 @@ visible = false
 modulate = Color( 0.898039, 0, 1, 1 )
 position = Vector2( 384, 64 )
 
+[node name="UI" type="Node2D" parent="View"]
+
+[node name="LevelName" type="Label" parent="View/UI"]
+margin_left = 44.0
+margin_top = 656.0
+margin_right = 774.0
+margin_bottom = 696.0
+rect_rotation = 270.0
+custom_fonts/font = ExtResource( 8 )
+text = "1. Test Level"
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Time" type="Label" parent="View/UI"]
+margin_left = 1004.0
+margin_top = 27.0
+margin_right = 1164.0
+margin_bottom = 67.0
+custom_fonts/font = ExtResource( 8 )
+text = "0:00:00"
+align = 2
+clip_text = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Clock" type="Sprite" parent="View/UI"]
+position = Vector2( 1196, 39 )
+scale = Vector2( 0.0363492, 0.0363492 )
+texture = ExtResource( 10 )
+
+[node name="Paused" type="Sprite" parent="View/UI/Clock"]
+visible = false
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 12 )
+
+[node name="ClockClickable" parent="View/UI/Clock" instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 1, 0 )
+position = Vector2( -660.262, -590.805 )
+scale = Vector2( 10.3166, 9.40944 )
+texture = ExtResource( 15 )
+
+[node name="Back" parent="View/UI" instance=ExtResource( 13 )]
+modulate = Color( 1, 0.45098, 0.964706, 0.6 )
+position = Vector2( -52, 52 )
+rotation = -0.785398
+scale = Vector2( 2.1985, 1 )
+
+[node name="ColorPicker" parent="View/UI" instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 1, 0.25098 )
+self_modulate = Color( 1, 1, 1, 0 )
+position = Vector2( 1240, 0 )
+scale = Vector2( 1.0625, 11.25 )
+clicked_alpha_increase = 0.0
+hovered_alpha_increase = 0.65
+
+[node name="Clickable" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 1, 0.6 )
+position = Vector2( 20.7059, 60.8 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable2" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 0, 0.6 )
+position = Vector2( 20.7059, 57.6 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable3" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 1, 1, 0.6 )
+position = Vector2( 20.7059, 54.4 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable4" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 0, 1, 0.6 )
+position = Vector2( 20.7059, 51.2 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable5" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 0, 0, 0.6 )
+position = Vector2( 20.7059, 48 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable6" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 1, 0, 0.6 )
+position = Vector2( 20.7059, 44.8 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable7" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 0, 1, 0.6 )
+position = Vector2( 20.7059, 41.6 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable8" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0.498039, 1, 1, 0.6 )
+position = Vector2( 20.7059, 38.4 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable9" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 0.498039, 1, 0.6 )
+position = Vector2( 20.7059, 35.2 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable10" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 1, 0.498039, 0.6 )
+position = Vector2( 20.7059, 32 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable11" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0.498039, 0.498039, 1, 0.6 )
+position = Vector2( 20.7059, 28.8 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable12" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 0.498039, 0.498039, 0.6 )
+position = Vector2( 20.7059, 25.6 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable13" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0.498039, 1, 0.498039, 0.6 )
+position = Vector2( 20.7059, 22.4 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable14" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 0.498039, 1, 0.6 )
+position = Vector2( 20.7059, 19.2 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable15" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 1, 0.498039, 0.6 )
+position = Vector2( 20.7059, 16 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable16" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0.498039, 0, 1, 0.6 )
+position = Vector2( 20.7059, 12.8 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable17" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 1, 0, 0.498039, 0.6 )
+position = Vector2( 20.7059, 9.60001 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable18" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 0, 0.498039, 0.6 )
+position = Vector2( 20.7059, 6.4 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable19" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 0.498039, 0, 0.6 )
+position = Vector2( 20.7059, 3.2 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="Clickable20" parent="View/UI/ColorPicker" instance=ExtResource( 13 )]
+modulate = Color( 0, 0, 0, 0.6 )
+position = Vector2( 20.7059, 0 )
+scale = Vector2( 0.5, 0.0488889 )
+clicked_alpha_increase = 0.25
+
+[node name="NoteEditing" type="Sprite" parent="View/UI"]
+visible = false
+modulate = Color( 1, 1, 1, 0.227451 )
+position = Vector2( 678, 352 )
+scale = Vector2( 0.16, 0.166667 )
+z_index = 2
+texture = ExtResource( 19 )
+
+[node name="NoteText" type="LineEdit" parent="View/UI"]
+margin_left = 272.0
+margin_top = 664.0
+margin_right = 1008.0
+margin_bottom = 712.0
+custom_fonts/font = ExtResource( 8 )
+custom_styles/read_only = SubResource( 5 )
+custom_styles/focus = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
+align = 1
+editable = false
+script = SubResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Notes" parent="." instance=ExtResource( 17 )]
+
 [connection signal="end_selection" from="Controllers/SelectionController" to="." method="_on_SelectionController_end_selection"]
 [connection signal="expand_selection" from="Controllers/SelectionController" to="." method="_on_SelectionController_expand_selection"]
 [connection signal="keep_selection" from="Controllers/SelectionController" to="." method="_on_SelectionController_keep_selection"]
+[connection signal="select_all" from="Controllers/SelectionController" to="." method="_on_SelectionController_select_all"]
 [connection signal="start_selection" from="Controllers/SelectionController" to="." method="_on_SelectionController_start_selection"]
 [connection signal="stop_keep_selection" from="Controllers/SelectionController" to="." method="_on_SelectionController_stop_keep_selection"]
 [connection signal="clear" from="Controllers/CellWriteController" to="." method="_on_CellWriteController_clear"]
 [connection signal="number_wheel_exited" from="Controllers/CellWriteController" to="." method="_on_CellWriteController_number_wheel_exited"]
 [connection signal="number_wheel_spawned" from="Controllers/CellWriteController" to="." method="_on_CellWriteController_number_wheel_spawned"]
+[connection signal="toggle_secondary_marks" from="Controllers/CellWriteController" to="." method="_on_CellWriteController_toggle_secondary_marks"]
 [connection signal="write_number" from="Controllers/CellWriteController" to="." method="_on_CellWriteController_write_number"]
 [connection signal="redo" from="Controllers/StateController" to="." method="_on_StateController_redo"]
 [connection signal="undo" from="Controllers/StateController" to="." method="_on_StateController_undo"]
+[connection signal="pause" from="Controllers/TimerController" to="." method="_on_TimerController_pause"]
+[connection signal="value_changed" from="View/BgLayer/BGScaleSlider" to="View" method="_on_BGScaleSlider_value_changed"]
+[connection signal="mouse_status_changed" from="View/UI/Clock/ClockClickable" to="Controllers/UIController" method="_on_UI_mouse_status_changed"]
+[connection signal="pressed" from="View/UI/Clock/ClockClickable" to="Controllers/TimerController" method="_on_ClockClickable_pressed"]
+[connection signal="pressed" from="View/UI/Back" to="Controllers/UIController" method="_on_Back_pressed"]
+[connection signal="mouse_status_changed" from="View/UI/ColorPicker" to="Controllers/UIController" method="_on_UI_mouse_status_changed"]

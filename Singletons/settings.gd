@@ -21,17 +21,40 @@ var settings = {
 	"fullscreen" : false,
 	"resolution" : Vector2(1280, 720),
 	# Stage
+	"autosave" : true,
 	"box_selection" : false,
 	"keep_selection" : false,
+	"secondary_marks" : false,
+	# Stage - View
+	"no_gaps" : false,
+	"reverse_numpad" : true,
+	"cell_alpha" : 0.5,
+	"candidates_all_visible_alpha" : 0.1,
+	"candidates_9_alpha" : 0.05,
+	"candidates_8_alpha" : 0.25,
+	"candidates_7_alpha" : 0.3,
+	"candidates_6_alpha" : 0.35,
+	"candidates_5_alpha" : 0.4,
+	"candidates_4_alpha" : 0.5,
+	"candidates_3_alpha" : 0.8,
+	"candidates_2_alpha" : 0.9,
+	"candidates_1_alpha" : 1,
+	"notes_grid_snap" : Vector2(32, 32),
+	"notes_grid_offset" : Vector2(0, 0),
 	# Stage - Assist
-	"autofill" : false,
+	"autofill" : true,
+	"warn_impossible_number" : true,
+	"warn_incorrect_number" : false,
 	"warn_solution_not_in_candidates" : false,
-	"highlight_naked_singles" : false,
+	"highlight_naked_singles" : true,
 	"highlight_hidden_singles" : false,
-	"highlight_bivalue_cells" : false,
+	"fill_naked_singles" : true,
+	"fill_hidden_singles" : true,
+	"highlight_bivalue_cells" : true,
 	# Colors
 	"stage_default_color" : Color.white,
 	"stage_givens_color" : Color.lightcyan,
+	"stage_won_color" : Color.lightgoldenrod,
 	"stage_error_color" : Color.lightcoral,
 	"stage_singles_color" : Color.gold,
 	"stage_pairs_color" : Color.cyan,
@@ -68,17 +91,29 @@ func load_settings():
 						settings[key] = new_settings[key]
 	settings_file.close()
 
+signal settings_changed()
 
 func apply_settings():
-	OS.window_fullscreen = settings["fullscreen"]
+	if settings["fullscreen"]:
+		#OS.set_borderless_window(true)
+		#OS.set_window_size(OS.get_screen_size())
+		#OS.set_window_position(Vector2.ZERO)
+		OS.window_fullscreen = true
+	else:
+		#OS.set_borderless_window(false)
+		#OS.set_window_size(settings["resolution"])
+		#OS.set_window_position(Vector2.ZERO)
+		OS.window_fullscreen = false
 	
 	var settings_file = File.new()
 	settings_file.open("user://settings.json", File.WRITE)
 	settings_file.store_line(to_json(settings))
 	settings_file.close()	
+	
+	emit_signal("settings_changed")
 
 
 func check_settings_input(event):
 	if event.is_action_pressed("fullscreen"):
 		settings["fullscreen"] = not settings["fullscreen"]
-		OS.window_fullscreen = settings["fullscreen"]
+		apply_settings()

@@ -14,6 +14,8 @@ func _ready():
 
 var level_template = preload("res://LevelSelect/level.tscn")
 
+var levels = []
+
 func initialize_levels():
 	var levels = Game.get_file_as_text("res://LevelSelect/levels.png")
 	levels = levels.replace("\n", "")
@@ -27,38 +29,34 @@ func initialize_levels():
 		level.description = levels[3*i+2]
 		level.sudoku = levels[3*i+3]
 		level.update_level_info(str(i+1), float(levels[3*i+1]), levels[3*i+2], \
-			levels[3*i+3], 0)
+			levels[3*i+3], level.Progress.NOT_ATTEMPTED)
+		level.get_node("Controller/Clickable").connect("mouse_status_changed", \
+			self, "_on_Level_mouse_status_changed", [level])
+		self.levels.append(level)
 
 func load_savedata():
 	var save_file = File.new()
-	if save_file.file_exists("user://savedata.json"):
-		save_file.open("user://savedata.json", File.READ)
-		var savedata = parse_json(save_file.get_as_text())
-		if savedata:
-			var regex = RegEx.new()
-			regex.compile("{.*}")
-			for level in $"Levels".get_children():
-				var sudoku = regex.sub(level.sudoku, "")
-				if savedata.has(sudoku):
-					var marks = 0
-					var stop_counting = false
-					for c in sudoku:
-						if not stop_counting and c == "0":
-							marks += 1
-						elif c == "[":
-							stop_counting = true
-						elif c == "]":
-							stop_counting = false
-					var empty_marks = savedata[sudoku].substr(0, marks).count("0")
-					var proportion = ((float(marks - empty_marks) / marks))
-					
-					var progress = level.Progress.NOT_ATTEMPTED
-					if "無" in savedata[sudoku]:
-						progress = level.Progress.FAILED
-					elif proportion == 1:
-						progress = level.Progress.SOLVED
-					elif proportion > 0:
-						progress = level.Progress.IN_PROGRESS
-					
-					level.update_level_info(level.number, level.difficulty, \
-						level.description, level.sudoku, progress)
+	var savedata = Game.get_savedata()
+	if savedata:
+		for level in levels:
+			var level_savedata = {}
+			if savedata.has(get_level_id(level).md5_text()):
+				level_savedata = parse_json(savedata[get_level_id(level).md5_text()])
+			var progress = level.Progress.NOT_ATTEMPTED
+			if level_savedata:
+				if level_savedata.has("won") and level_savedata["won"]:
+					progress = level.Progress.SOLVED
+				else:
+					progress = level.Progress.IN_PROGRESS
+			level.update_level_info(level.number, level.difficulty, \
+				level.description, level.sudoku, progress)
+
+onready var level_description = $UI/LevelDescription
+func _on_Level_mouse_status_changed(hovered, clicked, level):
+	if hovered:
+		level_description.text = ((level.number + ". " if level.number != "" else "") + level.description)
+	elif level_description.text == get_level_id(level):
+		level_description.text = ""
+
+func get_level_id(level):
+	return ((level.number + ". " if level.number != "" else "") + level.description)

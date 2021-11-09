@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Stage/stage.tscn" type="PackedScene" id=1]
+[ext_resource path="res://LevelSelect/level_select.tscn" type="PackedScene" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+func _ready():
+	get_tree().paused = true
+
+func switch():
+	if $Stage.visible:
+		$Stage.visible = false
+		$Stage.pause_mode = PAUSE_MODE_INHERIT
+		$LevelSelect.visible = true
+		$LevelSelect.pause_mode = PAUSE_MODE_PROCESS
+	else:
+		$Stage.visible = true
+		$Stage.pause_mode = PAUSE_MODE_PROCESS
+		$LevelSelect.visible = false
+		$LevelSelect.pause_mode = PAUSE_MODE_INHERIT
+"
+
+[node name="LevelSelectAndStage" type="Node2D"]
+pause_mode = 2
+script = SubResource( 1 )
+
+[node name="Stage" parent="." instance=ExtResource( 1 )]
+visible = false
+
+[node name="LevelSelect" parent="." instance=ExtResource( 2 )]
+pause_mode = 2

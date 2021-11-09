@@ -15,6 +15,17 @@ const THETA_TO_NUMBER = {
 	7 : 9,
 }
 
+const THETA_TO_NUMBER_REVERSED = {
+	0 : 6,
+	1 : 9,
+	2 : 8,
+	3 : 7,
+	4 : 4,
+	5 : 1,
+	6 : 2,
+	7 : 3,
+}
+
 const MIN_LENGTH_FOR_OUTER = 1028
 
 var action_confirm = "number_wheel"
@@ -28,7 +39,8 @@ func _process(_delta):
 		while theta < 0:
 			theta += 2 * PI
 		theta = int(theta / 2 / PI * 8)
-		hovered_number = THETA_TO_NUMBER[theta]
+		hovered_number = THETA_TO_NUMBER[theta] \
+			if not Settings.settings["reverse_numpad"] else THETA_TO_NUMBER_REVERSED[theta]
 		$Circle.visible = false
 		$Cone.visible = true
 		$Cone.rotation = theta * deg2rad(45)

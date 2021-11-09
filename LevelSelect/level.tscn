@@ -65,3 +65,4 @@ __meta__ = {
 
 [connection signal="updated" from="." to="View" method="_on_Level_updated"]
 [connection signal="mouse_status_changed" from="Controller/Clickable" to="View" method="_on_Clickable_mouse_status_changed"]
+[connection signal="pressed" from="Controller/Clickable" to="." method="_on_Clickable_pressed"]

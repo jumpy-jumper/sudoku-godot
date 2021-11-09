@@ -6,6 +6,7 @@ extends Node2D
 class_name Model
 
 onready var view = $View
+var controllers = []
 
 func _ready():
 	initialize_tracked()
@@ -15,6 +16,14 @@ func _ready():
 
 func _process(dt):
 	call_deferred("recalculate_state")
+
+func add_controller_lock(lock):
+	for c in controllers:
+		c.add_lock(lock)
+
+func release_controller_lock(lock):
+	for c in controllers:
+		c.release_lock(lock)
 
 #  -------------------------
 # |  STATE TRACKING         |
@@ -43,13 +52,19 @@ func initialize_tracked():
 
 func initialize_state():
 	for property in tracked:
-		last_state[property] = to_json(get(property)).sha1_text()
+		last_state[property] = get(property)
+		if last_state[property] is Array or last_state[property] is Dictionary:
+			last_state[property] = last_state[property].hash()
 
 func recalculate_state():
+	if not is_visible_in_tree():
+		return
 	var properties_changed = {}
 	for property in last_state.keys():
 		var value = get(property)
-		var hsh = to_json(value).sha1_text()
+		var hsh = value
+		if value is Array or value is Dictionary:
+			hsh = value.hash()
 		if hsh != last_state[property]:
 			last_state[property] = hsh
 			properties_changed[property] = value
